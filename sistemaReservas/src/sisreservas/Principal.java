@@ -43,9 +43,9 @@ public class Principal {
 	
 	//Metodo que comprueba si el proceso hijo ha terminado. Devuelve falso en caso afirmativo
 	//y en caso negativo devuelve true y lanza una excepcion.
-	public static boolean isAlive(Process p) {
+	public static boolean isAlive(Process process) {
 		try {
-			p.exitValue();
+			process.exitValue();
 			return false;
 		} catch (IllegalThreadStateException e) {
 			return true;
