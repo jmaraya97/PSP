@@ -10,30 +10,30 @@ public class Principal {
 		ProcessBuilder builder = new ProcessBuilder(args); //Pasamos por argumentos el comando java -jar C:/Users/jmara/Documents/secundaria.jar que contiene la clase Secundaria y Pistas 
 		builder.redirectErrorStream(true);
 		Process process = builder.start();
-		InputStream out = process.getInputStream();//salida del proceso hijo en la entrada del padre
-		OutputStream in = process.getOutputStream(); //entrada del proceso hijo en la salida del padre
+		InputStream outHijo = process.getInputStream();//salida del proceso hijo en la entrada del padre
+		OutputStream inHijo = process.getOutputStream(); //entrada del proceso hijo en la salida del padre
  
 		byte[] buffer = new byte[4000];//buffer
 		
 		while (isAlive(process)) {
-			int no = out.available();
-			if (no > 0) {
-				int n = out.read(buffer, 0, Math.min(no, buffer.length));
+			int numOut = outHijo.available();
+			if (numOut > 0) {
+				int n = outHijo.read(buffer, 0, Math.min(numOut, buffer.length));
 				System.out.println(new String(buffer, 0, n));
 			}
 
-			int ni = System.in.available();
-			if (ni > 0) {
-				int n = System.in.read(buffer, 0, Math.min(ni, buffer.length));
-				in.write(buffer, 0, n);
-				in.flush();
+			int numIn = System.in.available();
+			if (numIn > 0) {
+				int n = System.in.read(buffer, 0, Math.min(numIn, buffer.length));
+				inHijo.write(buffer, 0, n);
+				inHijo.flush();
 			}
 			
 			try {
 				//Retardo de tiempo de 10 milisegundos, suficiente para que no se pisen los procesos.
 				Thread.sleep(10);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
+			} catch (InterruptedException ie) {
+				ie.printStackTrace();
 				Thread.currentThread().interrupt();
 			}
 		}
