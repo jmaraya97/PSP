@@ -14,8 +14,8 @@ import java.util.HashMap;
 
 /**
  * 
- * @author Juan Martín Ayala
- * 2º DAM
+ * @author Juan MartÃ­n Ayala
+ * 2Âº DAM
  * 
  * 
  * Clase Server Principal. Como su nombre indica, esta clase representa al servidor
@@ -35,9 +35,9 @@ public class ServerPrincipal {
 			servSock.bind(isa); //asignacion del socket a la addres
 
 			//Creacion de varias entradas del buzon
-			buzon.put("Juan", "mensaje para Juan");
-			buzon.put("Paco", "mensaje para Paco");
-			buzon.put("Carlos", "un saludo Carlos");
+			buzon.put("Juan", "");
+			buzon.put("Paco", "");
+			buzon.put("Carlos", "");
 
 			System.out.println("Esperando clientes...");
 
@@ -48,10 +48,10 @@ public class ServerPrincipal {
 					s = servSock.accept();//aceptamos la peticion del cliente y le asignamos un socket nuevo para el 
 					DataInputStream dis = new DataInputStream(s.getInputStream()); //inicializamos la forma en que se van a comunicar el cliente y el hilo
 					DataOutputStream dos = new DataOutputStream(s.getOutputStream());
-					System.out.println("Creando una nueva conexión para el cliente");
+					System.out.println("Creando una nueva conexiÃ³n para el cliente");
 					ConexionHilo conexHilo = new ConexionHilo(s, dis, dos, buzon); //creamos el hilo pasandole los datos que acabamos de recoger
 					conexHilo.start();//iniciamos el hilo de la conexion
-					System.out.println("Conexión creada");
+					System.out.println("ConexiÃ³n creada");
 				} catch (Exception e) {
 					s.close(); //en caso de error cerramos el socket
 					e.printStackTrace();
