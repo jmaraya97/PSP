@@ -17,22 +17,6 @@ targetNamespace="http://www.paquete.com/xml/school" elementFormDefault="qualifie
             </xs:sequence>
         </xs:complexType>
     </xs:element>
-    
-    <xs:element name="StudentAddressRequest">
-        <xs:complexType>
-            <xs:sequence>
-                <xs:element name="name" type="xs:string"/>
-            </xs:sequence>
-        </xs:complexType>
-    </xs:element>
- 
-    <xs:element name="StudentAddressResponse">
-        <xs:complexType>
-            <xs:sequence>
-                <xs:element name="address" type="xs:string"/>
-            </xs:sequence>
-        </xs:complexType>
-    </xs:element>
  
     <xs:complexType name="Student">
         <xs:sequence>
