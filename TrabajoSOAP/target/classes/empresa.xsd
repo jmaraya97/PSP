@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://www.paquete.com/xml/empresa"
+targetNamespace="http://www.paquete.com/xml/empresa" elementFormDefault="qualified">
+ 
+    <xs:element name="EmpleadoDetailsRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="nombre" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+ 
+    <xs:element name="EmpleadoDetailsResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="Empleado" type="tns:Empleado"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    
+    <xs:element name="DepartamentoDetailsRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="nombreDep" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+ 
+    <xs:element name="DepartamentoDetailsResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="Departamento" type="tns:Departamento" />
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    
+    <xs:element name="EmpleadoEdadRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="nombre" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+ 
+    <xs:element name="EmpleadoEdadResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="edad" type="xs:int"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+ 
+    <xs:complexType name="Empleado">
+        <xs:sequence>
+            <xs:element name="nombre" type="xs:string"/>
+            <xs:element name="direccion" type="xs:string"/>
+            <xs:element name="edad" type="xs:int"/>
+			<xs:element name="Departamento" type="tns:Departamento" />
+        </xs:sequence>
+    </xs:complexType>
+    
+        <xs:complexType name="Departamento">
+        <xs:sequence>
+            <xs:element name="nombreDep" type="xs:string"/>
+            <xs:element name="maxEmpleados" type="xs:int"/>
+        </xs:sequence>
+    </xs:complexType>
+     
+</xs:schema>
