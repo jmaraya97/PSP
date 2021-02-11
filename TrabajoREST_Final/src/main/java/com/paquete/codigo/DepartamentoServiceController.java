@@ -18,8 +18,10 @@ import com.paquete.codigo.modelo.Empleado;
 
 @RestController
 public class DepartamentoServiceController {
+	//Map que hace la funcion de base de datos de la tabla Departamentos
 	private static Map<String, Departamento> mapDepartamentos = new HashMap<>();
 
+	//Creacion de datos y agregacion de estos al map
 	static {
 		Departamento d1 = new Departamento();
 		d1.setId("1");
@@ -31,8 +33,11 @@ public class DepartamentoServiceController {
 		d2.setNombreDep("Desarrollo");
 		mapDepartamentos.put(d2.getId(), d2);
 	}
-
+	
+	//Map que hace la funcion de base de datos de la tabla Empleado
 	private static Map<String, Empleado> mapEmpleados = new HashMap<>();
+	
+	//Creacion de datos y agregacion de estos al map
 	static {
 		Empleado e1 = new Empleado();
 		e1.setId("1");
@@ -56,16 +61,22 @@ public class DepartamentoServiceController {
 		mapEmpleados.put(e3.getId(), e3);
 	}
 
-	public static Map<String, Departamento> getMapDepartamentos() {
-		return mapDepartamentos;
-	}
-
+	/**
+	 * Metodo que elimina el departamento indicado en la URL mediante su ID
+	 * @param idDep recibido desde la URL
+	 * @return Respuesta que indica que todo ha ido correcto
+	 */
 	@DeleteMapping("/dep/{idDep}")
 	public ResponseEntity<Object> delete(@PathVariable("idDep") String id) {
 		mapDepartamentos.remove(id);
 		return new ResponseEntity<>("Departamento is deleted successsfully", HttpStatus.OK);
 	}
 
+	/**
+	 * Metodo que actualiza el departamento indicado en la URL mediante su ID
+	 * @param idDep recibido desde la URL
+	 * @return Respuesta que indica que todo ha ido correcto
+	 */
 	@PutMapping("/dep/{idDep}")
 	public ResponseEntity<Object> updateDepartamento(@PathVariable("idDep") String id, @RequestBody Departamento dep) {
 		mapDepartamentos.remove(id);
@@ -74,17 +85,31 @@ public class DepartamentoServiceController {
 		return new ResponseEntity<>("Departamento is updated successsfully", HttpStatus.OK);
 	}
 
+	/**
+	 * Metodo que crea el departamento pasado mediante JSON
+	 * @param dep
+	 * @return Respuesta que indica que todo ha ido correcto
+	 */
 	@PostMapping("/dep")
 	public ResponseEntity<Object> createDepartamento(@RequestBody Departamento dep) {
 		mapDepartamentos.put(dep.getId(), dep);
 		return new ResponseEntity<>("Departamento is created successfully", HttpStatus.CREATED);
 	}
 
+	/**
+	 * Metodo muestra el departamento indicado en la URL mediante su ID
+	 * @param idDep recibido desde la URL
+	 * @return Respuesta que indica que todo ha ido correcto
+	 */
 	@GetMapping("/dep/{idDep}")
 	public ResponseEntity<Object> getDepartamentoById(@PathVariable("idDep") String id) {
 		return new ResponseEntity<>(mapDepartamentos.get(id), HttpStatus.OK);
 	}
 
+	/**
+	 * Metodo muestra todos los departamentos
+	 * @return Respuesta que muestra los departamentos en formato JSON
+	 */
 	@GetMapping("/dep")
 	public ResponseEntity<Object> getDepartamento() {
 		return new ResponseEntity<>(mapDepartamentos.values(), HttpStatus.OK);
@@ -93,6 +118,12 @@ public class DepartamentoServiceController {
 	//----------------------------------------------------------------------------------------------------------------------------------//
 	//------------------------------------------------------Consultas Empleados---------------------------------------------------------//
 	//----------------------------------------------------------------------------------------------------------------------------------//
+	/**
+	 * Elimina a un Empleado indicado en la URL, SOLO en caso de que el empleado pertenezca al departamento indicado
+	 * @param idDep recibido desde la URL y hace refencia al id del Departamento
+	 * @param id  recibido desde la URL y hace refencia al id del Empleado
+	 * @return respuesta que indica si se ha podido o no realizar lo que se pide
+	 */
 	@DeleteMapping("/dep/{idDep}/empleados/{id}")
 	public ResponseEntity<Object> deleteEmpleado(@PathVariable("idDep") String idDep, @PathVariable("id") String id) {
 		if (mapEmpleados.get(id).getDepartamento().getId().equals(idDep)) {
@@ -104,6 +135,12 @@ public class DepartamentoServiceController {
 
 	}
 
+	/**
+	 * Actualiza a un Empleado indicado en la URL, SOLO en caso de que el empleado pertenezca al departamento indicado
+	 * @param idDep recibido desde la URL y hace refencia al id del Departamento
+	 * @param id  recibido desde la URL y hace refencia al id del Empleado
+	 * @return respuesta que indica si se ha podido o no realizar lo que se pide
+	 */
 	@PutMapping("/dep/{idDep}/empleados/{id}")
 	public ResponseEntity<Object> updateEmpleado(@PathVariable("idDep") String idDep, @PathVariable("id") String id,
 			@RequestBody Empleado empleado) {
@@ -117,6 +154,12 @@ public class DepartamentoServiceController {
 					HttpStatus.OK);
 	}
 
+	/**
+	 * Crea un Empleado con los datos recibidos en el Departamento indicado en la URL
+	 * @param idDep recibido desde la URL y hace refencia al id del Departamento
+	 * @param Empleado
+	 * @return respuesta que indica si se ha podido o no realizar lo que se pide
+	 */
 	@PostMapping("/dep/{idDep}/empleados")
 	public ResponseEntity<Object> createEmpleado(@PathVariable("idDep") String idDep, @RequestBody Empleado empleado) {
 		empleado.setDepartamento(mapDepartamentos.get(idDep));
@@ -125,6 +168,12 @@ public class DepartamentoServiceController {
 
 	}
 
+	/**
+	 * Muestra el empleado del departamento indicado
+	 * @param idDep recibido desde la URL y hace refencia al id del Departamento
+	 * @param id  recibido desde la URL y hace refencia al id del Empleado
+	 * @return respuesta que indica si se ha podido o no realizar lo que se pide
+	 */
 	@GetMapping("/dep/{idDep}/empleados/{id}")
 	public ResponseEntity<Object> getEmpleadoById(@PathVariable("idDep") String idDep, @PathVariable("id") String id) {
 		if (mapEmpleados.get(id).getDepartamento().getId().equals(idDep)) {
@@ -134,9 +183,15 @@ public class DepartamentoServiceController {
 					HttpStatus.CREATED);
 	}
 
+	/**
+	 * Muestra los empleados del departamento indicado
+	 * @param idDep recibido desde la URL y hace refencia al id del Departamento
+	 * @param id  recibido desde la URL y hace refencia al id del Empleado
+	 * @return respuesta que indica si se ha podido o no realizar lo que se pide
+	 */
 	@GetMapping("/dep/{idDep}/empleados")
 	public ResponseEntity<Object> getEmpleados(@PathVariable("idDep") String idDep) {
-		Map<String, Empleado> empleadosDepartamento = new HashMap<>();
+		Map<String, Empleado> empleadosDepartamento = new HashMap<>(); //Map temporal para almacenar los empleados pertenecientes al departamento
 		for (int id = 1; id <= mapEmpleados.size(); id++) {
 			if (mapEmpleados.get(String.valueOf(id)).getDepartamento().getId().equals(idDep)) {
 				empleadosDepartamento.put(String.valueOf(id),mapEmpleados.get(String.valueOf(id)));
