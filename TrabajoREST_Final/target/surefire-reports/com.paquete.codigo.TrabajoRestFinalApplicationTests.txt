@@ -1,0 +1,10 @@
+-------------------------------------------------------------------------------
+Test set: com.paquete.codigo.TrabajoRestFinalApplicationTests
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 0.807 s <<< FAILURE! - in com.paquete.codigo.TrabajoRestFinalApplicationTests
+contextLoads  Time elapsed: 0.001 s  <<< ERROR!
+java.lang.IllegalStateException: Failed to load ApplicationContext
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'departamentoServiceController' defined in file [C:\Users\vspc\Desktop\REST_FINAL\TrabajoREST_Final\TrabajoREST_Final\target\classes\com\paquete\codigo\DepartamentoServiceController.class]: Instantiation of bean failed; nested exception is java.lang.ExceptionInInitializerError
+Caused by: java.lang.ExceptionInInitializerError
+Caused by: java.lang.NullPointerException
+
